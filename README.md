@@ -16,6 +16,8 @@ flowchart LR
 
 Runs fully local out of the box — embedded Postgres, a simulated ad platform, no accounts, no spend.
 
+![Stage 1 test results in the adlab dashboard](docs/images/dashboard-test-results.png)
+
 ---
 
 ## Quick start with a coding agent (recommended)
