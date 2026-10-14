@@ -1,0 +1,19 @@
+{
+  "name": "@adlab/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "adlab-mcp": "./bin/adlab-mcp.mjs"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@adlab/contracts": "*",
+    "@adlab/client": "*",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.6.7",
+    "tsx": "^4.23.15"
+  }
+}

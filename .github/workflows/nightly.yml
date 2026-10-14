@@ -1,0 +1,26 @@
+name: nightly
+
+on:
+  schedule: [{ cron: "0 6 * * *" }]
+  workflow_dispatch:
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - uses: opentofu/setup-opentofu@v1
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # Agent conformance runs when an agent CLI and its credentials are available, e.g.:
+      #   npm i -g @anthropic-ai/claude-code   with ANTHROPIC_API_KEY set as a repository secret.
+      - run: npm run verify -- --tier nightly
+        env:
+          CI: "true"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: goldens, path: .adlab/goldens, if-no-files-found: ignore }

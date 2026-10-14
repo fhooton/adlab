@@ -1,0 +1,79 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='__VARIABLES__'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=__W__, height=__H__" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: __W__px; height: __H__px; overflow: hidden; background: var(--bg, #101114); }
+      #root {
+        position: relative; width: 100%; height: 100%;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--fg, #f5f5f2);
+        /* Platform safe zones: keep copy out of the top 14% and bottom 22% (Reels/Stories UI). */
+        --safe-top: 14%; --safe-bottom: 22%; --safe-x: 8%;
+        --unit: calc(min(__W__px, __H__px) / 100);
+      }
+      .scene { position: absolute; inset: 0; padding: var(--safe-top) var(--safe-x) var(--safe-bottom); display: flex; flex-direction: column; justify-content: center; gap: calc(var(--unit) * 4); }
+      .bar { width: calc(var(--unit) * 18); height: calc(var(--unit) * 1.6); background: var(--accent, #ff5a1f); border-radius: 999px; }
+      .hook { font-size: calc(var(--unit) * 10); font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; }
+      .body { font-size: calc(var(--unit) * 7); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
+      .brand { font-size: calc(var(--unit) * 4); font-weight: 600; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.12em; }
+      .broll { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.35; }
+      .cta { align-self: flex-start; background: var(--accent, #ff5a1f); color: #fff; font-size: calc(var(--unit) * 5.5); font-weight: 800; padding: calc(var(--unit) * 3) calc(var(--unit) * 6); border-radius: calc(var(--unit) * 2.4); }
+      .offer { font-size: calc(var(--unit) * 5); font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="__W__" data-height="__H__">
+      <section id="s-hook" class="scene clip" data-start="0" data-duration="3.2" data-track-index="0">
+        <div class="bar"></div>
+        <h1 class="hook" data-var="hook"></h1>
+      </section>
+      <section id="s-problem" class="scene clip" data-start="3.2" data-duration="3.8" data-track-index="0">
+        <div class="broll" id="broll"></div>
+        <p class="body" data-var="problem" style="position: relative"></p>
+      </section>
+      <section id="s-solution" class="scene clip" data-start="7" data-duration="4.4" data-track-index="0">
+        <p class="brand" data-var="brand"></p>
+        <p class="body" data-var="solution"></p>
+      </section>
+      <section id="s-cta" class="scene clip" data-start="11.4" data-duration="3.6" data-track-index="0">
+        <p class="offer" data-var="offer"></p>
+        <div class="cta" data-var="cta"></div>
+        <p class="brand" data-var="brand"></p>
+      </section>
+    </div>
+    <script>
+      // The declaration is generated from the template manifest in packages/render/src/templates.ts.
+      const declared = JSON.parse(document.documentElement.getAttribute("data-composition-variables"));
+      // Preview values (window.__hfVariables, injected by the dashboard) win over the runtime's,
+      // which would otherwise return the declared defaults; render passes values via the CLI.
+      const vars = Object.assign(
+        Object.fromEntries(declared.map((v) => [v.id, v.default])),
+        (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {},
+        window.__hfVariables || {},
+      );
+      document.querySelectorAll("[data-var]").forEach((el) => { el.textContent = vars[el.dataset.var] ?? ""; });
+      const root = document.getElementById("root");
+      for (const key of ["accent", "bg", "fg"]) root.style.setProperty(`--${key}`, vars[key]);
+      document.body.style.background = vars.bg;
+      if (vars.broll) document.getElementById("broll").style.backgroundImage = `url("${vars.broll}")`;
+
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s-hook .bar", { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1)
+        .fromTo("#s-hook .hook", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.2)
+        .fromTo("#s-problem .body", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 3.3)
+        .fromTo("#broll", { scale: 1.12 }, { scale: 1, duration: 3.8, ease: "none" }, 3.2)
+        .fromTo("#s-solution > *", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: "power2.out" }, 7.1)
+        .fromTo("#s-cta > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.12, ease: "back.out(1.6)" }, 11.5)
+        .to("#s-cta .cta", { scale: 1.05, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 12.4);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+node_modules
+**/node_modules
+.adlab
+.env
+apps/web/dist
+coverage
+playwright-report
+test-results

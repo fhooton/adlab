@@ -1,0 +1,18 @@
+{
+  "name": "@adlab/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "adlab": "./bin/adlab.mjs"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@adlab/contracts": "*",
+    "@adlab/client": "*",
+    "commander": "^15.0.0",
+    "tsx": "^4.23.15"
+  }
+}

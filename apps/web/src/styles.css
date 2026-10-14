@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "../../../packages/ui/src/tokens.css";
+
+/* Tailwind scans the component library too (it lives outside this app). */
+@source "../../../packages/ui/src";
+
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility link {
+  color: var(--color-link);
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}

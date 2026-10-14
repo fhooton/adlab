@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.adlab/
+.env
+.env.*
+!.env.example
+coverage/
+playwright-report/
+test-results/
+*.log
+.DS_Store
+renders/
+.adlab-e2e/
+.adlab-web-dev/

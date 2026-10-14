@@ -1,0 +1,50 @@
+{
+  "name": "adlab",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Agent-operated ad testing: brief → variants → bounded tests → winners, with code-enforced budgets and human approvals.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "setup": "tsx scripts/setup.ts",
+    "dev": "tsx scripts/dev.ts",
+    "start:api": "tsx apps/api/src/main.ts",
+    "start:worker": "tsx apps/worker/src/main.ts",
+    "start:web": "npm run dev -w @adlab/web",
+    "adlab": "tsx packages/cli/src/main.ts",
+    "mcp": "tsx packages/mcp/src/main.ts",
+    "demo": "tsx scripts/demo.ts",
+    "verify": "tsx scripts/verify.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "db:generate": "drizzle-kit generate --config packages/db/drizzle.config.ts",
+    "db:migrate": "tsx packages/db/src/migrate-cli.ts",
+    "skills:sync": "tsx scripts/sync-skills.ts",
+    "backtest": "tsx packages/fixtures/src/backtest-cli.ts",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "tsx": "^4.23.15",
+    "vitest": "^5.0.4",
+    "@vitest/coverage-v8": "^5.0.4",
+    "fast-check": "^4.10.2",
+    "@biomejs/biome": "2.5.15",
+    "drizzle-kit": "^0.31.11",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@playwright/test": "^1.64.1",
+    "concurrently": "^10.0.6",
+    "vite": "^8.3.4"
+  }
+}

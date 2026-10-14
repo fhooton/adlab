@@ -1,0 +1,177 @@
+/*
+ * adlab design tokens. One source of truth for colour, type, radius and elevation.
+ * Consumed as a Tailwind v4 theme: `@import "@adlab/ui/tokens.css"` (or a relative path) after
+ * `@import "tailwindcss"`. Every utility (bg-surface, text-ink-2, border-line, ...) resolves to a
+ * CSS variable, so dark mode only swaps variables.
+ *
+ * Colour is reserved for status. Everything else is neutral ink on neutral surfaces.
+ */
+@theme {
+  /* --- type ------------------------------------------------------------- */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-2xs: 10px;
+  --text-2xs--line-height: 14px;
+  --text-xs: 11px;
+  --text-xs--line-height: 16px;
+  --text-sm: 12px;
+  --text-sm--line-height: 18px;
+  --text-base: 13px;
+  --text-base--line-height: 20px;
+  --text-md: 14px;
+  --text-md--line-height: 20px;
+  --text-lg: 16px;
+  --text-lg--line-height: 24px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 30px;
+
+  /* --- radius & elevation ------------------------------------------------ */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 7px;
+  --shadow-xs: 0 1px 0 0 rgb(15 15 20 / 0.03);
+  --shadow-pop: 0 1px 2px rgb(15 15 20 / 0.06), 0 8px 24px -6px rgb(15 15 20 / 0.14);
+
+  /* --- neutrals ---------------------------------------------------------- */
+  --color-canvas: #f6f6f4;
+  --color-surface: #ffffff;
+  --color-surface-2: #f9f9f8;
+  --color-surface-3: #f0f0ee;
+  --color-line: #e5e5e1;
+  --color-line-strong: #d3d3cd;
+  --color-ink: #18181a;
+  --color-ink-2: #4b4b50;
+  --color-ink-3: #7c7c82;
+  --color-ink-4: #a9a9ae;
+  --color-focus: #2f6fdd;
+
+  /* Primary action: ink, not a brand hue, so status colour stays meaningful. */
+  --color-accent: #1d1d20;
+  --color-accent-hover: #000000;
+  --color-accent-ink: #ffffff;
+  --color-link: #2b5fc2;
+
+  /* --- status (defined once) -------------------------------------------- */
+  --color-running: #2563c9;
+  --color-running-bg: #e9f0fb;
+  --color-pending: #a46207;
+  --color-pending-bg: #fbf1de;
+  --color-killed: #6b6b72;
+  --color-killed-bg: #ededeb;
+  --color-won: #16794a;
+  --color-won-bg: #e3f3ea;
+  --color-failed: #c22b2b;
+  --color-failed-bg: #fbe8e6;
+  --color-nmd: #6d55b8;
+  --color-nmd-bg: #efebfa;
+  --color-neutral: #6b6b72;
+  --color-neutral-bg: #f0f0ee;
+
+  /* Danger surface used by the engaged kill switch. */
+  --color-danger: #c22b2b;
+  --color-danger-hover: #a82222;
+  --color-danger-ink: #ffffff;
+}
+
+@layer base {
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-canvas: #111113;
+      --color-surface: #18181b;
+      --color-surface-2: #1d1d21;
+      --color-surface-3: #26262b;
+      --color-line: #2c2c31;
+      --color-line-strong: #3b3b42;
+      --color-ink: #ededef;
+      --color-ink-2: #b4b4ba;
+      --color-ink-3: #85858c;
+      --color-ink-4: #5d5d64;
+      --color-accent: #ededef;
+      --color-accent-hover: #ffffff;
+      --color-accent-ink: #111113;
+      --color-link: #7ea6f0;
+      --color-running: #78a3ee;
+      --color-running-bg: #1b2740;
+      --color-pending: #e0a94a;
+      --color-pending-bg: #35290f;
+      --color-killed: #9a9aa1;
+      --color-killed-bg: #26262b;
+      --color-won: #5cc791;
+      --color-won-bg: #14301f;
+      --color-failed: #f07a72;
+      --color-failed-bg: #3a1a18;
+      --color-nmd: #a995ec;
+      --color-nmd-bg: #261f3d;
+      --color-neutral: #9a9aa1;
+      --color-neutral-bg: #26262b;
+      --color-danger: #d23b35;
+      --color-danger-hover: #e04a44;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --color-canvas: #111113;
+    --color-surface: #18181b;
+    --color-surface-2: #1d1d21;
+    --color-surface-3: #26262b;
+    --color-line: #2c2c31;
+    --color-line-strong: #3b3b42;
+    --color-ink: #ededef;
+    --color-ink-2: #b4b4ba;
+    --color-ink-3: #85858c;
+    --color-ink-4: #5d5d64;
+    --color-accent: #ededef;
+    --color-accent-hover: #ffffff;
+    --color-accent-ink: #111113;
+    --color-link: #7ea6f0;
+    --color-running: #78a3ee;
+    --color-running-bg: #1b2740;
+    --color-pending: #e0a94a;
+    --color-pending-bg: #35290f;
+    --color-killed: #9a9aa1;
+    --color-killed-bg: #26262b;
+    --color-won: #5cc791;
+    --color-won-bg: #14301f;
+    --color-failed: #f07a72;
+    --color-failed-bg: #3a1a18;
+    --color-nmd: #a995ec;
+    --color-nmd-bg: #261f3d;
+    --color-neutral: #9a9aa1;
+    --color-neutral-bg: #26262b;
+    --color-danger: #d23b35;
+    --color-danger-hover: #e04a44;
+    color-scheme: dark;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    color: var(--color-ink);
+    background: var(--color-canvas);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: var(--color-canvas);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-focus) 22%, transparent);
+  }
+}
+
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "zero" 0;
+  letter-spacing: -0.01em;
+}

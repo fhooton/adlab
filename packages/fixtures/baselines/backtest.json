@@ -1,0 +1,18 @@
+{
+  "stage1": {
+    "ruleVersion": "stage1-v1",
+    "scenarios": 40,
+    "winnerRecall": 1,
+    "winnerKilledRate": 0,
+    "wastedSpendShare": 0.2351608333333334,
+    "maxBudgetUtilisation": 0.9213333333333333
+  },
+  "stage2": {
+    "ruleVersion": "stage2-v1",
+    "scenarios": 40,
+    "winnerRecall": 1,
+    "winnerKilledRate": 0,
+    "wastedSpendShare": 0.03959520833333333,
+    "maxBudgetUtilisation": 0.9303166666666667
+  }
+}

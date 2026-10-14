@@ -1,0 +1,67 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='__VARIABLES__'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=__W__, height=__H__" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: __W__px; height: __H__px; overflow: hidden; background: var(--bg, #f4f1ea); }
+      #root { position: relative; width: 100%; height: 100%; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--fg, #121212); --unit: calc(min(__W__px, __H__px) / 100); }
+      .scene { position: absolute; inset: 0; padding: 14% 8% 22%; display: flex; flex-direction: column; justify-content: center; gap: calc(var(--unit) * 3); }
+      .hook { font-size: calc(var(--unit) * 11); font-weight: 900; line-height: 1; letter-spacing: -0.04em; }
+      .hook .w { display: inline-block; margin-right: 0.22em; }
+      .stat { font-size: calc(var(--unit) * 30); font-weight: 900; color: var(--accent, #2f6bff); letter-spacing: -0.05em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+      .label { font-size: calc(var(--unit) * 5.5); font-weight: 600; }
+      .cta { align-self: flex-start; background: var(--fg, #121212); color: var(--bg, #f4f1ea); font-size: calc(var(--unit) * 5.5); font-weight: 800; padding: calc(var(--unit) * 3) calc(var(--unit) * 6); border-radius: 999px; }
+      .brand { font-size: calc(var(--unit) * 4); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="__W__" data-height="__H__">
+      <section id="s-hook" class="scene clip" data-start="0" data-duration="3.4" data-track-index="0"><h1 class="hook" id="hook"></h1></section>
+      <section id="s-stat" class="scene clip" data-start="3.4" data-duration="3.6" data-track-index="0">
+        <div class="stat" data-var="stat"></div>
+        <p class="label" data-var="statLabel"></p>
+      </section>
+      <section id="s-cta" class="scene clip" data-start="7" data-duration="3" data-track-index="0">
+        <p class="brand" data-var="brand"></p>
+        <div class="cta" data-var="cta"></div>
+      </section>
+    </div>
+    <script>
+      // The declaration is generated from the template manifest in packages/render/src/templates.ts.
+      const declared = JSON.parse(document.documentElement.getAttribute("data-composition-variables"));
+      // Preview values (window.__hfVariables, injected by the dashboard) win over the runtime's,
+      // which would otherwise return the declared defaults; render passes values via the CLI.
+      const vars = Object.assign(
+        Object.fromEntries(declared.map((v) => [v.id, v.default])),
+        (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {},
+        window.__hfVariables || {},
+      );
+      document.querySelectorAll("[data-var]").forEach((el) => { el.textContent = vars[el.dataset.var] ?? ""; });
+      const hook = document.getElementById("hook");
+      for (const word of String(vars.hook).split(/\s+/)) {
+        const span = document.createElement("span");
+        span.className = "w";
+        span.textContent = word;
+        hook.appendChild(span);
+      }
+      const root = document.getElementById("root");
+      for (const key of ["accent", "bg", "fg"]) root.style.setProperty(`--${key}`, vars[key]);
+      document.body.style.background = vars.bg;
+
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#hook .w", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.12, ease: "power4.out" }, 0.1)
+        .fromTo("#s-stat .stat", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.8)" }, 3.5)
+        .fromTo("#s-stat .label", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 3.9)
+        .fromTo("#s-cta > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.12, ease: "power3.out" }, 7.1);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
