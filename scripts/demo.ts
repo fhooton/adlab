@@ -128,11 +128,13 @@ show({ variants: variants.length });
 
 step(5, "Render");
 await agent.run("variantsRender", { variantIds: variants.map((v: { id: string }) => v.id) });
-for (let i = 0; i < 60; i++) {
+// Real HyperFrames renders take ~20s each; give them up to 10 minutes and fail loudly on timeout.
+for (let i = 0; ; i++) {
   const list = await agent.run("variantsList", { briefId: brief.id });
   if (list.every((v: { status: string }) => v.status === "rendered")) break;
   if (list.some((v: { status: string }) => v.status === "render_failed"))
     throw new Error("A render failed; see API logs");
+  if (i >= 600) throw new Error("Renders did not finish within 10 minutes; see API logs");
   await new Promise((r) => setTimeout(r, 1000));
 }
 show({ rendered: variants.length, renderer: health.renderer });
