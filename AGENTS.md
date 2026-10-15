@@ -34,7 +34,7 @@ npm run adlab -- commands                # what you can do
 | `packages/services` | Application layer used by api and worker: db + adapters + core | |
 | `packages/client` | Typed HTTP client over the registry (used by cli, mcp, scripts) | contracts |
 | `packages/cli`, `packages/mcp` | Agent-facing surfaces, generated from the registry | client, contracts |
-| `packages/ui` | Our React component library + tokens | nothing from `@adlab/*` |
+| `packages/ui` | Our React component library + tokens, with Storybook | nothing from `@adlab/*` |
 | `apps/api` | Hono HTTP API, auth, inline worker for local | services |
 | `apps/worker` | Standalone worker (with real Postgres) | services |
 | `apps/web` | React + Tailwind dashboard | contracts, ui **only** |
@@ -68,6 +68,8 @@ without flagging it.** Rule sets are versioned: add `stage1-v2`, don't edit `sta
 
 ### Conventions
 
+- UI: every `packages/ui` component has stories next to it (`Component.stories.tsx`) covering each state.
+  Add or update stories with any component change; `npm run storybook` to view, and the full verify tier renders every story.
 - TypeScript strict, ESM, Biome (`npm run format`). Money is integer cents. IDs are `prefix_xxxxxxxxxxxx`.
 - Every write goes through `audit()`. Every platform write is idempotent (`ensureObject`).
 - Skills: edit `.agents/skills/` (canonical), then `npm run skills:sync`. Keep `SKILL.md` lean; put detail in `reference/`. No agent-specific features in core skills.

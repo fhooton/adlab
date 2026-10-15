@@ -83,16 +83,7 @@ test("every main view renders without errors", async ({ page }) => {
   await page.getByLabel("Dashboard password").fill(E2E.password);
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page).not.toHaveURL(/login/);
-  for (const path of [
-    "/",
-    "/briefs",
-    "/variants",
-    "/tests",
-    "/approvals",
-    "/activity",
-    "/learnings",
-    "/kitchen-sink",
-  ]) {
+  for (const path of ["/", "/briefs", "/variants", "/tests", "/approvals", "/activity", "/learnings"]) {
     await page.goto(path);
     await expect(page.locator("main, [role=main]").first()).toBeVisible();
   }

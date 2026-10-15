@@ -5,7 +5,6 @@ import { Shell } from "./shell";
 import { ActivityView } from "./views/Activity";
 import { ApprovalsView } from "./views/Approvals";
 import { BriefDetailView, BriefsView } from "./views/Briefs";
-import { KitchenSinkView } from "./views/KitchenSink";
 import { LearningsView } from "./views/Learnings";
 import { LoginView } from "./views/Login";
 import { NotFound } from "./views/NotFound";
@@ -37,7 +36,6 @@ export function App() {
               <Route path="approvals" element={<ApprovalsView />} />
               <Route path="activity" element={<ActivityView />} />
               <Route path="learnings" element={<LearningsView />} />
-              <Route path="kitchen-sink" element={<KitchenSinkView />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

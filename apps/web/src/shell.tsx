@@ -144,14 +144,6 @@ export function Shell({ children }: { children?: ReactNode }) {
           />
         ))}
       </SidebarSection>
-      <SidebarSection label="Reference">
-        <SidebarItem
-          as={Link}
-          to="/kitchen-sink"
-          label="Kitchen sink"
-          active={pathname.startsWith("/kitchen-sink")}
-        />
-      </SidebarSection>
     </Sidebar>
   );
 

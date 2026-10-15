@@ -1,4 +1,4 @@
-import { platformObjects } from "@adlab/db";
+import { platformObjects, spendLedger } from "@adlab/db";
 import { describe, expect, it } from "vitest";
 import {
   addLearning,
@@ -140,8 +140,11 @@ describe("full simulated loop", () => {
     });
     expect(learning.status).toBe("active");
 
+    // Committed spend is booked to the launch week (simulated time may have crossed into the next one).
+    const ledger = await ctx.db.select().from(spendLedger);
+    expect(ledger.map((l) => l.committedCents)).toEqual([30_000]);
+    expect(ledger[0]!.actualCents).toBeLessThanOrEqual(30_000);
     const ov = await overview(ctx);
-    expect(ov.week.committedCents).toBe(30_000);
     expect(ov.costPerVariantTestedCents).toBeGreaterThan(0);
     const dg = await digest(ctx, 24 * 7);
     expect(dg.launched).toHaveLength(1);

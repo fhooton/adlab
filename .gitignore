@@ -12,3 +12,4 @@ test-results/
 renders/
 .adlab-e2e/
 .adlab-web-dev/
+storybook-static/

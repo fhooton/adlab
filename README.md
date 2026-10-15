@@ -186,7 +186,7 @@ packages/
   render/            HyperFrames templates + renderer
   services/          application layer shared by api and worker
   client/ cli/ mcp/  agent-facing surfaces
-  ui/                our component library + tokens
+  ui/                our component library + tokens (Storybook: npm run storybook)
 knowledge/           context, policy packs, learnings (versioned markdown)
 infra/               OpenTofu scaffold
 ```
@@ -195,8 +195,14 @@ infra/               OpenTofu scaffold
 
 ```bash
 npm run verify                    # fast: typecheck, lint, unit + property tests, boundaries, skills drift
-npm run verify -- --tier full     # + integration, API, migrations drift, web build, e2e
+npm run verify -- --tier full     # + integration, API, migrations drift, web build, Storybook, e2e
 npm run verify -- --tier nightly  # + decision backtest vs baseline, render goldens, agent conformance, infra
+```
+
+The component library (`packages/ui`) has a Storybook with every component in each state, light and dark:
+
+```bash
+npm run storybook                 # http://localhost:6006
 ```
 
 See [AGENTS.md](AGENTS.md) for the development loop and [CONTRIBUTING.md](CONTRIBUTING.md) for PRs.
@@ -207,7 +213,7 @@ MVP: Meta only, local-first.
 
 - [x] Offline core: registry, rules engine, budget governor, fake ad platform, backtest baseline, CLI, MCP, API
 - [x] Generation: skills, knowledge, two HyperFrames templates, render pipeline, policy and spec checks
-- [x] Dashboard: briefs, angle matrix, variant review with live preview, approvals, results, activity, kill switch
+- [x] Dashboard: briefs, angle matrix, variant review with live preview, approvals, results, activity, kill switch; Storybook for the component library
 - [ ] Shadow mode against a live Meta account
 - [ ] TikTok adapter, fatigue monitor, learnings decay, generator evals
 - [ ] Hosted deploy (OpenTofu modules per provider), push alerts to a messaging channel

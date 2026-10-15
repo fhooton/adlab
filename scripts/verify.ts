@@ -72,6 +72,11 @@ const gates: Gate[] = [
     skip: () => (existsSync(path.join(root, "apps/web/index.html")) ? null : "apps/web not built yet"),
   },
   {
+    name: "storybook (build + render every story)",
+    cmd: ["sh", "-c", "npm run -s build-storybook >/dev/null && npx tsx scripts/storybook-smoke.ts"],
+    tiers: ["full", "nightly"],
+  },
+  {
     name: "e2e (playwright)",
     cmd: ["npx", "playwright", "test"],
     tiers: ["full", "nightly"],

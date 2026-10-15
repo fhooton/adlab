@@ -2,7 +2,7 @@
   "name": "adlab",
   "private": true,
   "version": "0.1.0",
-  "description": "Agent-operated ad testing: brief → variants → bounded tests → winners, with code-enforced budgets and human approvals.",
+  "description": "Agent-operated ad testing: brief \u2192 variants \u2192 bounded tests \u2192 winners, with code-enforced budgets and human approvals.",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -30,7 +30,9 @@
     "db:migrate": "tsx packages/db/src/migrate-cli.ts",
     "skills:sync": "tsx scripts/sync-skills.ts",
     "backtest": "tsx packages/fixtures/src/backtest-cli.ts",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "storybook": "npm run -s storybook -w @adlab/ui",
+    "build-storybook": "npm run -s build-storybook -w @adlab/ui"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
