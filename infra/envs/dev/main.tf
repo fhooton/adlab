@@ -4,7 +4,7 @@ terraform {
 
 variable "image" {
   type    = string
-  default = "ghcr.io/OWNER/adlab:latest"
+  default = "ghcr.io/fhooton/adlab:latest"
 }
 
 module "api" {

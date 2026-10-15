@@ -24,17 +24,24 @@ Runs fully local out of the box — embedded Postgres, a simulated ad platform, 
 
 Paste this into Claude Code, Codex or OpenCode:
 
-> Clone https://github.com/OWNER/adlab and `cd` into it. Read `AGENTS.md`, then follow the `adlab-operate` skill:
-> set it up, start it in the background, run the demo, and give me the dashboard URL and where to find the password.
+```text
+Clone https://github.com/fhooton/adlab and cd into it. Read AGENTS.md, then follow the adlab-operate skill: set it up, start it in the background, run the demo, and give me the dashboard URL and where to find the password.
+```
 
-Already cloned? Open the repo in your agent and say **"set up adlab and run the demo."**
+Already cloned? Open the repo in your agent and paste:
+
+```text
+Read AGENTS.md, then set up adlab, start it in the background and run the demo.
+```
 
 Then try:
 
-- *"Create a brief for <your product> and propose an angle matrix."*
-- *"Write 20 hook variants for the selected angle and render them."*
-- *"Pre-flight and request a $200 stage-1 test."* → you approve it in the dashboard
-- *"How is the test doing? Explain the decisions."*
+```text
+Create a brief for [your product] and propose an angle matrix.
+Write 20 hook variants for the selected angle and render them.
+Pre-flight and request a $200 stage-1 test.          (you approve it in the dashboard)
+How is the test doing? Explain the decisions.
+```
 
 The agent finds its instructions automatically: `AGENTS.md` (Codex, OpenCode) and `CLAUDE.md` → `AGENTS.md` (Claude Code),
 plus skills in `.agents/skills/` and `.claude/skills/`.
@@ -44,7 +51,7 @@ plus skills in `.agents/skills/` and `.claude/skills/`.
 Needs Node 22.12+.
 
 ```bash
-git clone https://github.com/OWNER/adlab && cd adlab
+git clone https://github.com/fhooton/adlab && cd adlab
 npm install
 npm run setup     # writes .env with generated secrets, migrates the embedded DB
 npm run dev       # API + worker + dashboard on http://localhost:5173
